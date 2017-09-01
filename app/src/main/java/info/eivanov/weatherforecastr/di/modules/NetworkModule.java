@@ -9,6 +9,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import info.eivanov.weatherforecastr.retrofit.MapAPIService;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -63,5 +64,12 @@ public class NetworkModule {
 
         return retrofit;
     }
+
+    @Provides
+    @Singleton
+    MapAPIService providesMapAPIService(Retrofit retrofit){
+        return retrofit.create(MapAPIService.class);
+    }
+
 
 }

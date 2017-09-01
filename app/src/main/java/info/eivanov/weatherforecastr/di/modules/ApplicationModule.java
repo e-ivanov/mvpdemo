@@ -33,4 +33,5 @@ public class ApplicationModule {
     SharedPreferences providesSharedPreferences(Application application){
         return PreferenceManager.getDefaultSharedPreferences(application);
     }
+
 }

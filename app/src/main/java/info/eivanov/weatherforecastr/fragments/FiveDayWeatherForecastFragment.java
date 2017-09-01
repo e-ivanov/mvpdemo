@@ -38,11 +38,6 @@ public class FiveDayWeatherForecastFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_five_day_weather_forecast, container, false);
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-    }
 
     @Override
     public void onDetach() {
