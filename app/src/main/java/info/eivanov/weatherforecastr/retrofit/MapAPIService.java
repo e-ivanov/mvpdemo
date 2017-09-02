@@ -4,9 +4,9 @@ import java.util.List;
 
 import info.eivanov.weatherforecastr.model.City;
 import info.eivanov.weatherforecastr.model.WeatherForecastResponse;
+import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
-import rx.Observable;
 
 /**
  * Created by killer on 9/1/17.
@@ -14,9 +14,9 @@ import rx.Observable;
 
 public interface MapAPIService {
 
-    @GET("/api.openweathermap.org/data/2.5/weather")
+    @GET("weather")
     Observable<WeatherForecastResponse> getCurrentWeatherForCity(@Query("id") long id);
 
-    @GET("api.openweathermap.org/data/2.5/weather")
+    @GET("weather")
     Observable<List<City>> getCitiesByName(@Query("q") String name);
 }

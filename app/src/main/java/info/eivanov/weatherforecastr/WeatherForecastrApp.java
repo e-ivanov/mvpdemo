@@ -34,7 +34,7 @@ public class WeatherForecastrApp extends Application{
 //        Fabric.with(this, new Crashlytics());
         repositoryComponent = DaggerRepositoryComponent.builder()
                 .applicationModule(new ApplicationModule(this))
-                .networkModule(new NetworkModule("http://localhost"))
+                .networkModule(new NetworkModule("http://api.openweathermap.org/data/2.5/"))
                 .build();
 
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()

@@ -5,15 +5,22 @@ import android.app.Application;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.IOException;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
 import info.eivanov.weatherforecastr.retrofit.MapAPIService;
 import okhttp3.Cache;
+import okhttp3.HttpUrl;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -48,7 +55,31 @@ public class NetworkModule {
     @Provides
     @Singleton
     OkHttpClient provideOkHttpClient(Cache cache){
-        OkHttpClient okHttpClient = new OkHttpClient.Builder().cache(cache).build();
+
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .cache(cache)
+                .addInterceptor(new Interceptor() {
+                    @Override
+                    public Response intercept(Chain chain) throws IOException {
+                        Request original = chain.request();
+                        HttpUrl originalURL = original.url();
+                        HttpUrl finalUrl = originalURL.newBuilder()
+                                .addQueryParameter("APPID", "**")
+                                .build();
+
+                        Request finalRequest = original.newBuilder()
+                                .url(finalUrl)
+                                .build();
+
+                        return chain.proceed(finalRequest);
+                    }
+                })
+                .addInterceptor(loggingInterceptor)
+                .build();
+
         return okHttpClient;
     }
 
@@ -59,7 +90,7 @@ public class NetworkModule {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .baseUrl(baseUrl)
                 .client(okHttpClient)
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
 
         return retrofit;

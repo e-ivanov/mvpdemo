@@ -16,4 +16,10 @@
         app:layout_constraintTop_toTopOf="parent"
         android:textSize="28sp"/>
 
+    <Button
+        android:id="@+id/myBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Click me!"/>
+
 </android.support.constraint.ConstraintLayout>

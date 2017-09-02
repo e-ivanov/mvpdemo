@@ -2,7 +2,7 @@ package info.eivanov.weatherforecastr.repository;
 
 import info.eivanov.weatherforecastr.model.WeatherForecastResponse;
 import info.eivanov.weatherforecastr.retrofit.MapAPIService;
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
  * Created by killer on 9/1/17.

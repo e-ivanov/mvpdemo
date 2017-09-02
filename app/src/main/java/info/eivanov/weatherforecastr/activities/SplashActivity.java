@@ -10,7 +10,6 @@ import javax.inject.Inject;
 import info.eivanov.weatherforecastr.R;
 import info.eivanov.weatherforecastr.WeatherForecastrApp;
 import info.eivanov.weatherforecastr.repository.CurrentLocationsRepo;
-import info.eivanov.weatherforecastr.repository.CurrentLocationsRepoImpl;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class SplashActivity extends AppCompatActivity {
