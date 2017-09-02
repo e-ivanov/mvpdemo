@@ -2,6 +2,9 @@ package info.eivanov.weatherforecastr.di.modules;
 
 import android.content.SharedPreferences;
 
+import com.google.gson.Gson;
+
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -21,8 +24,8 @@ public class RepositoryModule {
 
     @Provides
     @Singleton
-    CurrentLocationsRepo providesCurrentLocationsRepo(SharedPreferences prefs) {
-        return new CurrentLocationsRepoImpl(prefs);
+    CurrentLocationsRepo providesCurrentLocationsRepo(@Named("dataPrefs") SharedPreferences prefs, Gson gson) {
+        return new CurrentLocationsRepoImpl(prefs, gson);
     }
 
     @Provides

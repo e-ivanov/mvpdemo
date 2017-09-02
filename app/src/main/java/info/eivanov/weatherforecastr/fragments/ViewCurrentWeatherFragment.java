@@ -8,11 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import javax.inject.Inject;
+
 import info.eivanov.weatherforecastr.R;
+import info.eivanov.weatherforecastr.model.WeatherForecastResponse;
+import info.eivanov.weatherforecastr.view.ShowCurrentWeatherContract;
 
 
-public class ViewCurrentWeatherFragment extends Fragment {
+public class ViewCurrentWeatherFragment extends Fragment implements ShowCurrentWeatherContract.View {
 
+    @Inject
+    ShowCurrentWeatherContract.Presenter presenter;
 
     public ViewCurrentWeatherFragment() {
         // Required empty public constructor
@@ -40,11 +46,18 @@ public class ViewCurrentWeatherFragment extends Fragment {
     }
 
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 
     @Override
     public void onDetach() {
         super.onDetach();
     }
 
+    @Override
+    public void showForecast(WeatherForecastResponse response) {
+
+    }
 }

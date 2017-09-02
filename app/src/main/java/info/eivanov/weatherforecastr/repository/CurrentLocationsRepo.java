@@ -1,5 +1,6 @@
 package info.eivanov.weatherforecastr.repository;
 
+import java.util.Collection;
 import java.util.List;
 
 import info.eivanov.weatherforecastr.model.City;
@@ -10,9 +11,11 @@ import info.eivanov.weatherforecastr.model.City;
 
 public interface CurrentLocationsRepo {
 
-    public List<City> getLocations();
+    public Collection<City> getLocations();
     public List<City> searchCityByName(String name);
     public City getCityById(long id);
     public void deleteCityById(long id);
     public void addCity(City city);
+    public City getDefaultLocation();
+    public void setDefaultLocation(City city);
 }

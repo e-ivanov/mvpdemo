@@ -8,9 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import info.eivanov.weatherforecastr.R;
+import javax.inject.Inject;
 
-public class AddNewLocationFragment extends Fragment {
+import info.eivanov.weatherforecastr.R;
+import info.eivanov.weatherforecastr.view.AddNewLocationContract;
+
+public class AddNewLocationFragment extends Fragment implements AddNewLocationContract.View{
+
+    @Inject
+    AddNewLocationContract.Presenter presenter;
 
     public AddNewLocationFragment() {
         // Required empty public constructor

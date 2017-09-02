@@ -21,6 +21,8 @@ public class City implements Parcelable
     @SerializedName("coord")
     @Expose
     private Coord coord;
+
+    private boolean isDefault = false;
     public final static Creator<City> CREATOR = new Creator<City>() {
 
 
@@ -78,4 +80,11 @@ public class City implements Parcelable
         return  0;
     }
 
+    public boolean isDefault() {
+        return isDefault;
+    }
+
+    public void setDefault(boolean aDefault) {
+        isDefault = aDefault;
+    }
 }
