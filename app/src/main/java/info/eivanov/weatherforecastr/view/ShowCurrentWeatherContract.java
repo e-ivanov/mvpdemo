@@ -10,10 +10,11 @@ import info.eivanov.weatherforecastr.model.WeatherForecastResponse;
 public class ShowCurrentWeatherContract {
 
     public interface View{
-        public void showForecast(WeatherForecastResponse response);
+        void showForecast(WeatherForecastResponse response);
     }
 
     public interface Presenter{
-        public void showForecast(City city);
+        void setView(ShowCurrentWeatherContract.View view);
+        void loadForecast(long cityId);
     }
 }

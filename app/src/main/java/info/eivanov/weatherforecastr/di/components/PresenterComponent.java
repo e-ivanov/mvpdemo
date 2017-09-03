@@ -5,6 +5,7 @@ import info.eivanov.weatherforecastr.di.modules.PresenterModule;
 import info.eivanov.weatherforecastr.di.scope.FragmentScope;
 import info.eivanov.weatherforecastr.fragments.AddNewLocationFragment;
 import info.eivanov.weatherforecastr.fragments.LocationsListFragment;
+import info.eivanov.weatherforecastr.fragments.ViewCurrentWeatherFragment;
 
 /**
  * Created by killer on 9/3/17.
@@ -15,4 +16,5 @@ public interface PresenterComponent {
 
     void inject(AddNewLocationFragment fragment);
     void inject(LocationsListFragment fragment);
+    void inject(ViewCurrentWeatherFragment fragment);
 }
