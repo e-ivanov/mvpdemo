@@ -26,6 +26,12 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_btn"
         android:text="@string/save"/>
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/btnSaveNewLocation"
+        android:text="@string/cancel" />
 
     <Button
         android:id="@+id/btnClearCurrentSelection"

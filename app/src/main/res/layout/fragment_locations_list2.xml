@@ -1,12 +1,18 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="info.eivanov.weatherforecastr.fragments.LocationsListFragment">
 
+    <Button
+        android:id="@+id/btnAddNewLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_new_location"/>
     <android.support.v7.widget.RecyclerView
+        android:layout_below="@id/btnAddNewLocation"
         android:id="@+id/currentCitiesList"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-</FrameLayout>
+</RelativeLayout>

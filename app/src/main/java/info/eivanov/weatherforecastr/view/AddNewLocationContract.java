@@ -1,7 +1,6 @@
 package info.eivanov.weatherforecastr.view;
 
 import info.eivanov.weatherforecastr.model.City;
-import info.eivanov.weatherforecastr.model.WeatherForecastResponse;
 
 /**
  * Created by killer on 9/2/17.
@@ -23,5 +22,6 @@ public class AddNewLocationContract {
         public void clearCurrentSelection();
         public void onTextChanged(CharSequence s);
         public void setView(AddNewLocationContract.View view);
+        public void cancel();
     }
 }

@@ -11,12 +11,16 @@ import javax.inject.Inject;
 
 import info.eivanov.weatherforecastr.R;
 import info.eivanov.weatherforecastr.WeatherForecastrApp;
+import info.eivanov.weatherforecastr.activities.Navigator;
 import info.eivanov.weatherforecastr.di.components.DaggerPresenterComponent;
+import info.eivanov.weatherforecastr.di.modules.PresenterModule;
 import info.eivanov.weatherforecastr.model.WeatherForecastResponse;
 import info.eivanov.weatherforecastr.view.ShowCurrentWeatherContract;
 
 
 public class ViewCurrentWeatherFragment extends Fragment implements ShowCurrentWeatherContract.View {
+
+    public static final String TAG = "view_current_weather_fragment";
 
     @Inject
     ShowCurrentWeatherContract.Presenter presenter;
@@ -39,6 +43,7 @@ public class ViewCurrentWeatherFragment extends Fragment implements ShowCurrentW
         super.onCreate(savedInstanceState);
         DaggerPresenterComponent.builder()
                 .applicationComponent(WeatherForecastrApp.getApp(getActivity()).getApplicationComponent())
+                .presenterModule(new PresenterModule((Navigator)getActivity()))
                 .build().inject(this);
         presenter.setView(this);
         if (getArguments() != null) {

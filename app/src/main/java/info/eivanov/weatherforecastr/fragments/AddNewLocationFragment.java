@@ -5,7 +5,6 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,26 +14,20 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.concurrent.TimeUnit;
-
 import javax.inject.Inject;
 
 import info.eivanov.weatherforecastr.R;
 import info.eivanov.weatherforecastr.WeatherForecastrApp;
+import info.eivanov.weatherforecastr.activities.Navigator;
 import info.eivanov.weatherforecastr.di.components.DaggerPresenterComponent;
+import info.eivanov.weatherforecastr.di.modules.PresenterModule;
 import info.eivanov.weatherforecastr.model.City;
-import info.eivanov.weatherforecastr.repository.CurrentLocationsRepo;
-import info.eivanov.weatherforecastr.repository.GetWeatherInfoRepo;
 import info.eivanov.weatherforecastr.view.AddNewLocationContract;
 import info.eivanov.weatherforecastr.view.AutoCompleteAdaper;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 public class AddNewLocationFragment extends Fragment implements AddNewLocationContract.View, TextWatcher{
 
+    public static final String TAG = "add_new_location_fragment";
     @Inject
     AddNewLocationContract.Presenter presenter;
 
@@ -43,6 +36,7 @@ public class AddNewLocationFragment extends Fragment implements AddNewLocationCo
     private TextView cityDetails;
     private Button saveLocationBtn;
     private Button cleanLocationBtn;
+    private Button btnCancel;
 
 
     public AddNewLocationFragment() {
@@ -61,6 +55,7 @@ public class AddNewLocationFragment extends Fragment implements AddNewLocationCo
         super.onCreate(savedInstanceState);
         DaggerPresenterComponent.builder()
                 .applicationComponent(WeatherForecastrApp.getApp(getActivity()).getApplicationComponent())
+                .presenterModule(new PresenterModule((Navigator)getActivity()))
                 .build().inject(this);
         autoCompleteAdapter = new AutoCompleteAdaper(getActivity(),
                 android.R.layout.simple_dropdown_item_1line);
@@ -90,6 +85,7 @@ public class AddNewLocationFragment extends Fragment implements AddNewLocationCo
 
         saveLocationBtn = (Button)root.findViewById(R.id.btnSaveNewLocation);
         cleanLocationBtn = (Button)root.findViewById(R.id.btnClearCurrentSelection);
+        btnCancel = (Button)root.findViewById(R.id.btnCancel);
         saveLocationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,6 +96,12 @@ public class AddNewLocationFragment extends Fragment implements AddNewLocationCo
             @Override
             public void onClick(View v) {
                 presenter.clearCurrentSelection();
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.cancel();
             }
         });
         if(savedInstanceState != null){

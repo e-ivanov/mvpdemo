@@ -2,6 +2,7 @@ package info.eivanov.weatherforecastr.di.modules;
 
 import dagger.Module;
 import dagger.Provides;
+import info.eivanov.weatherforecastr.activities.Navigator;
 import info.eivanov.weatherforecastr.di.scope.FragmentScope;
 import info.eivanov.weatherforecastr.presenters.AddNewLocationPresenter;
 import info.eivanov.weatherforecastr.presenters.LocationListPresenter;
@@ -20,23 +21,29 @@ import info.eivanov.weatherforecastr.view.ShowCurrentWeatherContract;
 @Module
 public class PresenterModule {
 
+    private final Navigator navigator;
+
+    public PresenterModule(Navigator navigator) {
+        this.navigator = navigator;
+    }
+
     @FragmentScope
     @Provides
     AddNewLocationContract.Presenter providesAddNewLocationPresenter(CurrentLocationsRepo
                                                                              currentLocationsRepo,
                                                                      GetWeatherInfoRepo weatherInfoRepo){
-        return new AddNewLocationPresenter(currentLocationsRepo, weatherInfoRepo);
+        return new AddNewLocationPresenter(currentLocationsRepo, weatherInfoRepo, navigator);
     }
 
     @FragmentScope
     @Provides
     LocationsListContract.Presenter providesLocationsListPresenter(CurrentLocationsRepo currentLocationsRepo){
-        return new LocationListPresenter(currentLocationsRepo);
+        return new LocationListPresenter(currentLocationsRepo, navigator);
     }
 
     @FragmentScope
     @Provides
     ShowCurrentWeatherContract.Presenter providesShowCurrentWeatherPresenter(GetWeatherInfoRepo weatherInfoRepo){
-        return new ShowCurrentWeatherPresenter(weatherInfoRepo);
+        return new ShowCurrentWeatherPresenter(weatherInfoRepo, navigator);
     }
 }

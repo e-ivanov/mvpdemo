@@ -9,24 +9,29 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import javax.inject.Inject;
 
 import info.eivanov.weatherforecastr.R;
 import info.eivanov.weatherforecastr.WeatherForecastrApp;
+import info.eivanov.weatherforecastr.activities.Navigator;
 import info.eivanov.weatherforecastr.di.components.DaggerPresenterComponent;
-import info.eivanov.weatherforecastr.presenters.LocationListPresenter;
-import info.eivanov.weatherforecastr.repository.CurrentLocationsRepo;
+import info.eivanov.weatherforecastr.di.modules.PresenterModule;
 import info.eivanov.weatherforecastr.view.CurrentLocationsAdapter;
 import info.eivanov.weatherforecastr.view.LocationsListContract;
 
 public class LocationsListFragment extends Fragment {
 
 
+    public static final String TAG = "locations_list_fragment";
+
     @Inject
     LocationsListContract.Presenter presenter;
 
     private RecyclerView recyclerView;
+
+    private Button btnAddNewLocation;
 
     public LocationsListFragment() {
     }
@@ -43,6 +48,7 @@ public class LocationsListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         DaggerPresenterComponent.builder()
                 .applicationComponent(WeatherForecastrApp.getApp(getActivity()).getApplicationComponent())
+                .presenterModule(new PresenterModule((Navigator)getActivity()))
                 .build().inject(this);
     }
 
@@ -50,6 +56,14 @@ public class LocationsListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_locations_list2, container, false);
+        btnAddNewLocation = (Button)root.findViewById(R.id.btnAddNewLocation);
+        btnAddNewLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                presenter.addNewLocation();
+            }
+        });
         setUpRecyclerView(root);
         return root;
     }

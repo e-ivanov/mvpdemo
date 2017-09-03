@@ -1,5 +1,6 @@
 package info.eivanov.weatherforecastr.presenters;
 
+import info.eivanov.weatherforecastr.activities.Navigator;
 import info.eivanov.weatherforecastr.model.WeatherForecastResponse;
 import info.eivanov.weatherforecastr.repository.GetWeatherInfoRepo;
 import info.eivanov.weatherforecastr.view.ShowCurrentWeatherContract;
@@ -17,10 +18,12 @@ public class ShowCurrentWeatherPresenter implements ShowCurrentWeatherContract.P
 
 
     private final GetWeatherInfoRepo weatherInfoRepo;
+    private final Navigator navigator;
     private ShowCurrentWeatherContract.View view;
 
-    public ShowCurrentWeatherPresenter(GetWeatherInfoRepo weatherInfoRepo) {
+    public ShowCurrentWeatherPresenter(GetWeatherInfoRepo weatherInfoRepo, Navigator navigator) {
         this.weatherInfoRepo = weatherInfoRepo;
+        this.navigator = navigator;
     }
 
     @Override

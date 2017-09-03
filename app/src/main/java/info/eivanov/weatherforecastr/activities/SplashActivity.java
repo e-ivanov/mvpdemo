@@ -11,7 +11,6 @@ import javax.inject.Inject;
 import info.eivanov.weatherforecastr.R;
 import info.eivanov.weatherforecastr.WeatherForecastrApp;
 import info.eivanov.weatherforecastr.repository.CurrentLocationsRepo;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -24,11 +23,9 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         WeatherForecastrApp.getApp(this).getApplicationComponent().inject(this);
         Toast.makeText(this, currentLocationsRepo.toString(), Toast.LENGTH_LONG).show();
-        startActivity(new Intent(this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY));
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+        finish();
     }
 
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
 }

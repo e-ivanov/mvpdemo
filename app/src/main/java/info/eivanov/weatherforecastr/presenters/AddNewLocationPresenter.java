@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
+import info.eivanov.weatherforecastr.activities.Navigator;
 import info.eivanov.weatherforecastr.model.City;
 import info.eivanov.weatherforecastr.repository.CurrentLocationsRepo;
 import info.eivanov.weatherforecastr.repository.GetWeatherInfoRepo;
@@ -27,17 +28,24 @@ public class AddNewLocationPresenter implements AddNewLocationContract.Presenter
 
     private final CurrentLocationsRepo currentLocationsRepo;
     private final GetWeatherInfoRepo getWeatherInfoRepo;
+    private final Navigator navigator;
     private City currentSelection;
     private AddNewLocationContract.View view;
 
     public AddNewLocationPresenter(CurrentLocationsRepo currentLocationsRepo,
-                                   GetWeatherInfoRepo getWeatherInfoRepo) {
+                                   GetWeatherInfoRepo getWeatherInfoRepo, Navigator navigator) {
         this.currentLocationsRepo = currentLocationsRepo;
         this.getWeatherInfoRepo = getWeatherInfoRepo;
+        this.navigator = navigator;
     }
 
     public void setView(AddNewLocationContract.View view){
         this.view = view;
+    }
+
+    @Override
+    public void cancel() {
+        navigator.showCurrentLocationsScreen();
     }
 
     public City getCurrentSelection() {
@@ -55,6 +63,7 @@ public class AddNewLocationPresenter implements AddNewLocationContract.Presenter
     public void saveLocation() {
         if(currentSelection != null) {
             currentLocationsRepo.addCity(currentSelection);
+            navigator.showCurrentLocationsScreen();
         }
     }
 

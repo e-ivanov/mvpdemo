@@ -1,6 +1,5 @@
 package info.eivanov.weatherforecastr.view;
 
-import info.eivanov.weatherforecastr.model.City;
 import info.eivanov.weatherforecastr.model.WeatherForecastResponse;
 
 /**
@@ -9,7 +8,7 @@ import info.eivanov.weatherforecastr.model.WeatherForecastResponse;
 
 public class ShowCurrentWeatherContract {
 
-    public interface View{
+    public interface View  {
         void showForecast(WeatherForecastResponse response);
     }
 

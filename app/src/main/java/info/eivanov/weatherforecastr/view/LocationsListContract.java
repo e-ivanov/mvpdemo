@@ -19,5 +19,6 @@ public class LocationsListContract {
         public CurrentLocationsRepo getLocationsRepo();
         public void deleteCityById(long id);
         public List<City> getLocations();
+        public void addNewLocation();
     }
 }
