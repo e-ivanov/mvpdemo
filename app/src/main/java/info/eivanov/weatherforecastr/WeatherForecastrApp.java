@@ -3,20 +3,23 @@ package info.eivanov.weatherforecastr;
 import android.app.Application;
 import android.content.Context;
 
-import info.eivanov.weatherforecastr.di.components.DaggerRepositoryComponent;
-import info.eivanov.weatherforecastr.di.components.RepositoryComponent;
+import com.facebook.stetho.Stetho;
+
+import info.eivanov.weatherforecastr.di.components.ApplicationComponent;
+import info.eivanov.weatherforecastr.di.components.DaggerApplicationComponent;
+import info.eivanov.weatherforecastr.di.components.PresenterComponent;
 import info.eivanov.weatherforecastr.di.modules.ApplicationModule;
 import info.eivanov.weatherforecastr.di.modules.NetworkModule;
+import info.eivanov.weatherforecastr.di.modules.RepositoryModule;
 import info.eivanov.weatherforecastr.timber.ReleaseTree;
 import timber.log.Timber;
-import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**
  * Created by killer on 9/1/17.
  */
 
 public class WeatherForecastrApp extends Application{
-    private RepositoryComponent repositoryComponent;
+    private ApplicationComponent applicationComponent;
 
     public static WeatherForecastrApp getApp(Context ctx){
         return (WeatherForecastrApp)ctx.getApplicationContext();
@@ -28,25 +31,20 @@ public class WeatherForecastrApp extends Application{
 
         if(BuildConfig.DEBUG){
             Timber.plant(new Timber.DebugTree());
+            Stetho.initializeWithDefaults(this);
         }else{
             Timber.plant(new ReleaseTree());
         }
 //        Fabric.with(this, new Crashlytics());
-        repositoryComponent = DaggerRepositoryComponent.builder()
+        applicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
                 .networkModule(new NetworkModule("http://api.openweathermap.org/data/2.5/"))
+                .repositoryModule(new RepositoryModule())
                 .build();
-
-        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("fonts/weathericons-regular-webfont.ttf")
-                .setFontAttrId(R.attr.fontPath)
-                .build()
-        );
-        //....
-
     }
 
-    public RepositoryComponent getRepositoryComponent(){
-        return repositoryComponent;
+    public ApplicationComponent getApplicationComponent(){
+        return applicationComponent;
     }
+
 }

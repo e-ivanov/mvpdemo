@@ -1,13 +1,39 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="info.eivanov.weatherforecastr.fragments.AddNewLocationFragment">
+    tools:context="info.eivanov.weatherforecastr.fragments.AddNewLocationFragment"
+    android:background="@color/backgroud">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <AutoCompleteTextView
+        android:id="@+id/searchCityTxt"
+        android:layout_alignParentTop="true"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/cityAndCountryName"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/current_city_title"/>
+    <Button
+        android:id="@+id/btnSaveNewLocation"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_btn"
+        android:text="@string/save"/>
 
-</FrameLayout>
+    <Button
+        android:id="@+id/btnClearCurrentSelection"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/margin_btn"
+        android:text="@string/clear"/>
+
+</RelativeLayout>

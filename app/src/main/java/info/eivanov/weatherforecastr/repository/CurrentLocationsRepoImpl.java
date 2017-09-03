@@ -17,6 +17,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import info.eivanov.weatherforecastr.model.City;
+import io.reactivex.Observable;
 
 /**
  * Created by killer on 9/1/17.
@@ -47,8 +48,8 @@ public class CurrentLocationsRepoImpl extends BaseRepository<Long, City> impleme
     }
 
     @Override
-    public Collection<City> getLocations() {
-        return cache.values();
+    public List<City> getLocations() {
+        return new ArrayList<>(cache.values());
 
     }
 
@@ -71,7 +72,7 @@ public class CurrentLocationsRepoImpl extends BaseRepository<Long, City> impleme
     @Override
     public void addCity(City city) {
         cache.put(city.getId(), city);
-        prefs.edit().putString(String.valueOf(city.getId()), gson.toJson(city));
+        prefs.edit().putString(String.valueOf(city.getId()), gson.toJson(city)).commit();
     }
 
     @Override
@@ -82,13 +83,13 @@ public class CurrentLocationsRepoImpl extends BaseRepository<Long, City> impleme
     @Override
     public void setDefaultLocation(City city) {
         this.defaultLocation.setDefault(false);
-        this.prefs.edit().putString(String.valueOf(this.defaultLocation.getId()), gson.toJson(city));
+        this.prefs.edit().putString(String.valueOf(this.defaultLocation.getId()), gson.toJson(city)).commit();
         cache.put(this.defaultLocation.getId(), this.defaultLocation);
 
         this.defaultLocation = city;
 
         this.defaultLocation.setDefault(true);
-        this.prefs.edit().putString(String.valueOf(city.getId()), gson.toJson(city));
+        this.prefs.edit().putString(String.valueOf(city.getId()), gson.toJson(city)).commit();
         cache.put(city.getId(), city);
     }
 }

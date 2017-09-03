@@ -15,4 +15,7 @@
 
     <string name="place_not_found">Sorry, no weather data found.</string>
     <string name="title_activity_splash">SplashActivity</string>
+    <string name="delete">Delete</string>
+    <string name="save">Save</string>
+    <string name="clear">Clear</string>
 </resources>

@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import info.eivanov.weatherforecastr.model.City;
+import io.reactivex.Observable;
 
 /**
  * Created by killer on 9/1/17.
@@ -11,7 +12,7 @@ import info.eivanov.weatherforecastr.model.City;
 
 public interface CurrentLocationsRepo {
 
-    public Collection<City> getLocations();
+    public List<City> getLocations();
     public List<City> searchCityByName(String name);
     public City getCityById(long id);
     public void deleteCityById(long id);

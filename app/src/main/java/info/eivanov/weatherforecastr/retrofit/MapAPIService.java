@@ -18,5 +18,5 @@ public interface MapAPIService {
     Observable<WeatherForecastResponse> getCurrentWeatherForCity(@Query("id") long id);
 
     @GET("weather")
-    Observable<List<City>> getCitiesByName(@Query("q") String name);
+    Observable<City> getCitiesByName(@Query("q") String name);
 }

@@ -1,9 +1,9 @@
 package info.eivanov.weatherforecastr.fragments;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +17,8 @@ import info.eivanov.weatherforecastr.view.ShowCurrentWeatherContract;
 
 public class ViewCurrentWeatherFragment extends Fragment implements ShowCurrentWeatherContract.View {
 
-    @Inject
-    ShowCurrentWeatherContract.Presenter presenter;
+//    @Inject
+//    ShowCurrentWeatherContract.Presenter presenter;
 
     public ViewCurrentWeatherFragment() {
         // Required empty public constructor

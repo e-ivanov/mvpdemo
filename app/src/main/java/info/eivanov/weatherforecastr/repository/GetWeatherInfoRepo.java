@@ -1,5 +1,8 @@
 package info.eivanov.weatherforecastr.repository;
 
+import java.util.List;
+
+import info.eivanov.weatherforecastr.model.City;
 import info.eivanov.weatherforecastr.model.WeatherForecastResponse;
 import io.reactivex.Observable;
 
@@ -11,4 +14,5 @@ import io.reactivex.Observable;
 public interface GetWeatherInfoRepo {
 
     public Observable<WeatherForecastResponse> getWeatherForecastForCity(long id);
+    public Observable<City> searchLocations(String searchQuery);
 }

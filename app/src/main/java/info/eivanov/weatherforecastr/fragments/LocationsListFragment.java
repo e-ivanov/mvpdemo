@@ -1,22 +1,37 @@
 package info.eivanov.weatherforecastr.fragments;
 
-import android.content.Context;
-import android.net.Uri;
+import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.annotation.Nullable;
+import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import javax.inject.Inject;
+
 import info.eivanov.weatherforecastr.R;
+import info.eivanov.weatherforecastr.WeatherForecastrApp;
+import info.eivanov.weatherforecastr.di.components.DaggerPresenterComponent;
+import info.eivanov.weatherforecastr.presenters.LocationListPresenter;
+import info.eivanov.weatherforecastr.repository.CurrentLocationsRepo;
+import info.eivanov.weatherforecastr.view.CurrentLocationsAdapter;
+import info.eivanov.weatherforecastr.view.LocationsListContract;
 
 public class LocationsListFragment extends Fragment {
 
+
+    @Inject
+    LocationsListContract.Presenter presenter;
+
+    private RecyclerView recyclerView;
+
     public LocationsListFragment() {
-        // Required empty public constructor
     }
 
-    public static LocationsListFragment newInstance() {
+    public static Fragment newInstance() {
         LocationsListFragment fragment = new LocationsListFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -26,17 +41,31 @@ public class LocationsListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        DaggerPresenterComponent.builder()
+                .applicationComponent(WeatherForecastrApp.getApp(getActivity()).getApplicationComponent())
+                .build().inject(this);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_locations_list2, container, false);
+        View root = inflater.inflate(R.layout.fragment_locations_list2, container, false);
+        setUpRecyclerView(root);
+        return root;
     }
 
+    private void setUpRecyclerView(View root) {
+        recyclerView = (RecyclerView)root.findViewById(R.id.currentCitiesList);
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(llm);
+        CurrentLocationsAdapter adapter = new CurrentLocationsAdapter(presenter);
+        recyclerView.setAdapter(adapter);
+    }
 
-
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
 
     @Override
     public void onDetach() {

@@ -87,4 +87,10 @@ public class City implements Parcelable
     public void setDefault(boolean aDefault) {
         isDefault = aDefault;
     }
+
+
+    @Override
+    public String toString() {
+        return getName() + ", "+getCountry();
+    }
 }
