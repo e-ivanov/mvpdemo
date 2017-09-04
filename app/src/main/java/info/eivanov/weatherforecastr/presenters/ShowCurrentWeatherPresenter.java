@@ -9,6 +9,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 /**
  * Created by killer on 9/2/17.
@@ -44,17 +45,18 @@ public class ShowCurrentWeatherPresenter implements ShowCurrentWeatherContract.P
 
                     @Override
                     public void onNext(@NonNull WeatherForecastResponse weatherForecastResponse) {
+                        Timber.d("Received weather!");
                         view.showForecast(weatherForecastResponse);
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-
+                        Timber.d( e);
                     }
 
                     @Override
                     public void onComplete() {
-
+                        Timber.d("Observable is finished!");
                     }
                 });
     }

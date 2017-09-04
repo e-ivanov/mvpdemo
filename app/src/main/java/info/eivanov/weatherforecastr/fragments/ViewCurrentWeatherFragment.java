@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import javax.inject.Inject;
 
@@ -14,6 +15,7 @@ import info.eivanov.weatherforecastr.WeatherForecastrApp;
 import info.eivanov.weatherforecastr.activities.Navigator;
 import info.eivanov.weatherforecastr.di.components.DaggerPresenterComponent;
 import info.eivanov.weatherforecastr.di.modules.PresenterModule;
+import info.eivanov.weatherforecastr.model.Weather;
 import info.eivanov.weatherforecastr.model.WeatherForecastResponse;
 import info.eivanov.weatherforecastr.view.ShowCurrentWeatherContract;
 
@@ -24,6 +26,12 @@ public class ViewCurrentWeatherFragment extends Fragment implements ShowCurrentW
 
     @Inject
     ShowCurrentWeatherContract.Presenter presenter;
+
+    private TextView currentWeatherIc;
+    private TextView currentLocation;
+    private TextView currentConditionsDesc;
+    private TextView currentTemperature;
+
     private long cityId;
 
     public ViewCurrentWeatherFragment() {
@@ -54,8 +62,12 @@ public class ViewCurrentWeatherFragment extends Fragment implements ShowCurrentW
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_view_current_weather, container, false);
+        View root = inflater.inflate(R.layout.fragment_view_current_weather, container, false);
+        currentWeatherIc = (TextView)root.findViewById(R.id.currentWeatherIc);
+        currentConditionsDesc = (TextView)root.findViewById(R.id.currentConditionsDesc);
+        currentLocation = (TextView)root.findViewById(R.id.currentLocation);
+        currentTemperature = (TextView)root.findViewById(R.id.currentTemperature);
+        return root;
     }
 
     @Override
@@ -78,6 +90,11 @@ public class ViewCurrentWeatherFragment extends Fragment implements ShowCurrentW
 
     @Override
     public void showForecast(WeatherForecastResponse response) {
+        currentLocation.setText(response.getName()+", "+response.getSys().getCountry());
+        Weather weather = response.getWeather().get(0);
+        currentConditionsDesc.setText(weather.getMain()+", "+weather.getDescription());
+        currentTemperature.setText(String.valueOf(response.getMain().getTemp()));
+        currentWeatherIc.setText(weather.getIcon());
 
     }
 }

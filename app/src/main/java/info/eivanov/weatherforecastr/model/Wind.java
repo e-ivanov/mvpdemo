@@ -15,7 +15,7 @@ public class Wind implements Parcelable
     private Double speed;
     @SerializedName("deg")
     @Expose
-    private Long deg;
+    private Double deg;
     public final static Parcelable.Creator<Wind> CREATOR = new Creator<Wind>() {
 
 
@@ -25,7 +25,7 @@ public class Wind implements Parcelable
         public Wind createFromParcel(Parcel in) {
             Wind instance = new Wind();
             instance.speed = ((Double) in.readValue((Double.class.getClassLoader())));
-            instance.deg = ((Long) in.readValue((Long.class.getClassLoader())));
+            instance.deg = ((Double) in.readValue((Long.class.getClassLoader())));
             return instance;
         }
 
@@ -44,11 +44,11 @@ public class Wind implements Parcelable
         this.speed = speed;
     }
 
-    public Long getDeg() {
+    public Double getDeg() {
         return deg;
     }
 
-    public void setDeg(Long deg) {
+    public void setDeg(Double deg) {
         this.deg = deg;
     }
 

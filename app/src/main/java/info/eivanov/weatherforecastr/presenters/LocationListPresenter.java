@@ -40,4 +40,9 @@ public class LocationListPresenter implements LocationsListContract.Presenter {
     public void addNewLocation() {
         navigator.showAddNewLocationScreen();
     }
+
+    @Override
+    public void showCurrentWeatherForLocation(long cityId) {
+        navigator.showCurrentWeatherScreen(cityId);
+    }
 }

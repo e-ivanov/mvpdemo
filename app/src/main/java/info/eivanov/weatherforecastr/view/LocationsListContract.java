@@ -20,5 +20,6 @@ public class LocationsListContract {
         public void deleteCityById(long id);
         public List<City> getLocations();
         public void addNewLocation();
+        public void showCurrentWeatherForLocation(long cityId);
     }
 }

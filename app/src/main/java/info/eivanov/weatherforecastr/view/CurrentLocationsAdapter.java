@@ -62,6 +62,12 @@ public class CurrentLocationsAdapter extends RecyclerView.Adapter<CurrentLocatio
                     notifyItemRemoved(position);
                 }
             });
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    presenter.showCurrentWeatherForLocation(cities.get(position).getId());
+                }
+            });
         }
 
         public void bindModel(City city, int position){

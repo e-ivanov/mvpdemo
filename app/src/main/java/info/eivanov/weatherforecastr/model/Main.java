@@ -15,10 +15,10 @@ public class Main implements Parcelable
     private Double temp;
     @SerializedName("pressure")
     @Expose
-    private Long pressure;
+    private Double pressure;
     @SerializedName("humidity")
     @Expose
-    private Long humidity;
+    private Double humidity;
     @SerializedName("temp_min")
     @Expose
     private Double tempMin;
@@ -34,8 +34,8 @@ public class Main implements Parcelable
         public Main createFromParcel(Parcel in) {
             Main instance = new Main();
             instance.temp = ((Double) in.readValue((Double.class.getClassLoader())));
-            instance.pressure = ((Long) in.readValue((Long.class.getClassLoader())));
-            instance.humidity = ((Long) in.readValue((Long.class.getClassLoader())));
+            instance.pressure = ((Double) in.readValue((Long.class.getClassLoader())));
+            instance.humidity = ((Double) in.readValue((Long.class.getClassLoader())));
             instance.tempMin = ((Double) in.readValue((Double.class.getClassLoader())));
             instance.tempMax = ((Double) in.readValue((Double.class.getClassLoader())));
             return instance;
@@ -56,19 +56,19 @@ public class Main implements Parcelable
         this.temp = temp;
     }
 
-    public Long getPressure() {
+    public Double getPressure() {
         return pressure;
     }
 
-    public void setPressure(Long pressure) {
+    public void setPressure(Double pressure) {
         this.pressure = pressure;
     }
 
-    public Long getHumidity() {
+    public Double getHumidity() {
         return humidity;
     }
 
-    public void setHumidity(Long humidity) {
+    public void setHumidity(Double humidity) {
         this.humidity = humidity;
     }
 
