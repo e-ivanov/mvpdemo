@@ -48,7 +48,7 @@ public class ShowCurrentWeatherPresenter extends BasePresenter implements ShowCu
           public void onNext(@NonNull WeatherForecastResponse weatherForecastResponse) {
               Timber.d("Received weather!");
               view.showForecast(weatherForecastResponse);
-
+//              view.hideLoadingIndicator();
           }
 
           @Override

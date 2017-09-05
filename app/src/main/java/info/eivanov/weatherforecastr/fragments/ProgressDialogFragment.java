@@ -18,6 +18,10 @@ public class ProgressDialogFragment extends DialogFragment {
         return frag;
     }
 
+    public ProgressDialogFragment() {
+        setRetainInstance(true);
+    }
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
@@ -25,6 +29,7 @@ public class ProgressDialogFragment extends DialogFragment {
         dialog.setMessage("Loading");
         dialog.setIndeterminate(true);
         dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
 
         // Disable the back button
         DialogInterface.OnKeyListener keyListener = new DialogInterface.OnKeyListener() {
@@ -47,6 +52,7 @@ public class ProgressDialogFragment extends DialogFragment {
 
     @Override
     public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
         dialog.dismiss();
     }
 }

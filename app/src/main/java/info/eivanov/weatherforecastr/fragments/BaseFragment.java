@@ -2,7 +2,6 @@ package info.eivanov.weatherforecastr.fragments;
 
 import android.app.Fragment;
 
-import info.eivanov.weatherforecastr.view.BaseView;
 
 /**
  * Created by killer on 9/4/17.
@@ -10,20 +9,24 @@ import info.eivanov.weatherforecastr.view.BaseView;
 
 public class BaseFragment extends Fragment {
 
-    private final ProgressDialogFragment progressDialog = ProgressDialogFragment.newInstance();
-    private boolean isDialogAlreadyShown = false;
+    private final ProgressDialogFragment progressDialog = ProgressDialogFragment.newInstance();;
+    private boolean isDialogAlreadyShown;
+
+
     protected void showLoadingIndicator() {
-        if(!isDialogAlreadyShown){
+        if (getActivity().getFragmentManager().findFragmentByTag("Progress") == null) {
             progressDialog.show(getActivity().getFragmentManager(), "Progress");
-            isDialogAlreadyShown = true;
         }
 
     }
 
     protected void hideLoadingIndicator() {
-        if(isDialogAlreadyShown){
-            progressDialog.dismiss();
-            isDialogAlreadyShown = false;
+
+        if (getActivity().getFragmentManager().findFragmentByTag("Progress") != null) {
+            if (progressDialog != null && progressDialog.isAdded()) {
+                progressDialog.dismiss();
+            }
         }
     }
+
 }

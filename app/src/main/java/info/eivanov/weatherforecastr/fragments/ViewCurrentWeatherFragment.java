@@ -60,6 +60,9 @@ public class ViewCurrentWeatherFragment extends BaseFragment implements ShowCurr
         if (getArguments() != null) {
             cityId = getArguments().getLong("city_id", -1);
         }
+        if(cityId != -1) {
+            presenter.loadForecast(cityId);
+        }
     }
 
     @Override
@@ -77,9 +80,7 @@ public class ViewCurrentWeatherFragment extends BaseFragment implements ShowCurr
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if(cityId != -1) {
-            presenter.loadForecast(cityId);
-        }
+
     }
 
     @Override
@@ -116,6 +117,12 @@ public class ViewCurrentWeatherFragment extends BaseFragment implements ShowCurr
     @Override
     public void onStop() {
         super.onStop();
+
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
         presenter.unsubscribe();
     }
 
