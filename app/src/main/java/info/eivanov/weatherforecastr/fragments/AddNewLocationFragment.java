@@ -92,6 +92,7 @@ public class AddNewLocationFragment extends BaseFragment implements AddNewLocati
             @Override
             public void onClick(View v) {
                 presenter.saveLocation();
+                getActivity().getFragmentManager().popBackStack();
             }
         });
         cleanLocationBtn.setOnClickListener(new View.OnClickListener() {
@@ -104,6 +105,7 @@ public class AddNewLocationFragment extends BaseFragment implements AddNewLocati
             @Override
             public void onClick(View v) {
                 presenter.cancel();
+                getActivity().getFragmentManager().popBackStack();
             }
         });
         if(savedInstanceState != null){
