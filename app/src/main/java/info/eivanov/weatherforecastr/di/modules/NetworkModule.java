@@ -68,7 +68,7 @@ public class NetworkModule {
                         HttpUrl originalURL = original.url();
                         HttpUrl finalUrl = originalURL.newBuilder()
                                 .addQueryParameter("units", "metric")
-                                .addQueryParameter("APPID", "be7309bf043fa7cac72b001b1c1b3162")
+                                .addQueryParameter("APPID", "**")
                                 .build();
 
                         Request finalRequest = original.newBuilder()
