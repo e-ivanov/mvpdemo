@@ -11,7 +11,7 @@ import info.eivanov.weatherforecastr.view.LocationsListContract;
  * Created by killer on 9/3/17.
  */
 
-public class LocationListPresenter implements LocationsListContract.Presenter {
+public class LocationListPresenter extends BasePresenter implements LocationsListContract.Presenter {
 
     private final CurrentLocationsRepo currentLocationsRepo;
     private final Navigator navigator;
@@ -45,4 +45,11 @@ public class LocationListPresenter implements LocationsListContract.Presenter {
     public void showCurrentWeatherForLocation(long cityId) {
         navigator.showCurrentWeatherScreen(cityId);
     }
+
+    @Override
+    public void unsubscribe() {
+        disposable.clear();
+    }
+
+
 }

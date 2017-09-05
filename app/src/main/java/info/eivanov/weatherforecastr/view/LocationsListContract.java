@@ -11,7 +11,7 @@ import info.eivanov.weatherforecastr.repository.CurrentLocationsRepo;
 
 public class LocationsListContract {
 
-    public interface View{
+    public interface View extends BaseView{
 
     }
 
@@ -21,5 +21,6 @@ public class LocationsListContract {
         public List<City> getLocations();
         public void addNewLocation();
         public void showCurrentWeatherForLocation(long cityId);
+        public void unsubscribe();
     }
 }

@@ -8,7 +8,7 @@ import info.eivanov.weatherforecastr.model.City;
 
 public class AddNewLocationContract {
 
-    public interface View{
+    public interface View extends BaseView{
         public void setCityDetails(City city);
         public void clearCityDetails();
         public AutoCompleteAdaper getAutoCompleteAdaper();
@@ -23,5 +23,6 @@ public class AddNewLocationContract {
         public void onTextChanged(CharSequence s);
         public void setView(AddNewLocationContract.View view);
         public void cancel();
+        public void unsubscribe();
     }
 }

@@ -8,12 +8,13 @@ import info.eivanov.weatherforecastr.model.WeatherForecastResponse;
 
 public class ShowCurrentWeatherContract {
 
-    public interface View  {
+    public interface View extends BaseView {
         void showForecast(WeatherForecastResponse response);
     }
 
     public interface Presenter{
         void setView(ShowCurrentWeatherContract.View view);
         void loadForecast(long cityId);
+        void unsubscribe();
     }
 }

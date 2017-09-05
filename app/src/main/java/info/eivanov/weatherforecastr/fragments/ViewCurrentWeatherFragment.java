@@ -20,7 +20,7 @@ import info.eivanov.weatherforecastr.model.WeatherForecastResponse;
 import info.eivanov.weatherforecastr.view.ShowCurrentWeatherContract;
 
 
-public class ViewCurrentWeatherFragment extends Fragment implements ShowCurrentWeatherContract.View {
+public class ViewCurrentWeatherFragment extends BaseFragment implements ShowCurrentWeatherContract.View {
 
     public static final String TAG = "view_current_weather_fragment";
 
@@ -96,5 +96,21 @@ public class ViewCurrentWeatherFragment extends Fragment implements ShowCurrentW
         currentTemperature.setText(String.valueOf(response.getMain().getTemp()));
         currentWeatherIc.setText(weather.getIcon());
 
+    }
+
+
+    @Override
+    public void showLoadingIndicator() {
+        super.showLoadingIndicator();
+    }
+
+    @Override
+    public void hideLoadingIndicator() {
+        super.hideLoadingIndicator();
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        presenter.unsubscribe();
     }
 }

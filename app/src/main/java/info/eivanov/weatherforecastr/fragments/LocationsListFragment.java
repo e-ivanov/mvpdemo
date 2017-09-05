@@ -21,7 +21,7 @@ import info.eivanov.weatherforecastr.di.modules.PresenterModule;
 import info.eivanov.weatherforecastr.view.CurrentLocationsAdapter;
 import info.eivanov.weatherforecastr.view.LocationsListContract;
 
-public class LocationsListFragment extends Fragment {
+public class LocationsListFragment extends BaseFragment implements LocationsListContract.View {
 
 
     public static final String TAG = "locations_list_fragment";
@@ -84,6 +84,23 @@ public class LocationsListFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+    }
+
+
+    @Override
+    public void showLoadingIndicator() {
+        super.showLoadingIndicator();
+    }
+
+    @Override
+    public void hideLoadingIndicator() {
+        super.hideLoadingIndicator();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        presenter.unsubscribe();
     }
 
 }

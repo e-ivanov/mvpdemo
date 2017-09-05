@@ -16,6 +16,7 @@ import info.eivanov.weatherforecastr.view.AddNewLocationContract;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
@@ -24,7 +25,7 @@ import timber.log.Timber;
  * Created by killer on 9/2/17.
  */
 
-public class AddNewLocationPresenter implements AddNewLocationContract.Presenter {
+public class AddNewLocationPresenter extends BasePresenter implements AddNewLocationContract.Presenter {
 
     private final CurrentLocationsRepo currentLocationsRepo;
     private final GetWeatherInfoRepo getWeatherInfoRepo;
@@ -46,6 +47,11 @@ public class AddNewLocationPresenter implements AddNewLocationContract.Presenter
     @Override
     public void cancel() {
         navigator.showCurrentLocationsScreen();
+    }
+
+    @Override
+    public void unsubscribe() {
+        disposable.clear();
     }
 
     public City getCurrentSelection() {
@@ -75,6 +81,7 @@ public class AddNewLocationPresenter implements AddNewLocationContract.Presenter
 
     @Override
     public void onTextChanged(CharSequence s) {
+        view.showLoadingIndicator();
         getWeatherInfoRepo.searchLocations(String.valueOf(s))
                 .debounce(750, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
@@ -82,7 +89,7 @@ public class AddNewLocationPresenter implements AddNewLocationContract.Presenter
                 .subscribe(new Observer<City>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
-
+                        disposable.add(d);
                     }
 
                     @Override
@@ -91,17 +98,20 @@ public class AddNewLocationPresenter implements AddNewLocationContract.Presenter
                         view.getAutoCompleteAdaper().getCurrentItems().clear();
                         view.getAutoCompleteAdaper().getCurrentItems().add(cities);
                         view.getAutoCompleteAdaper().notifyDataSetChanged();
+
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
                         Timber.e("MY_TAGGGGG", e.getMessage());
                         view.showErrorDialog("My Dialog");
+                        view.hideLoadingIndicator();
                     }
 
                     @Override
                     public void onComplete() {
-                        Log.d("MY_TAGGGGG", "Completeddddd");
+                        Timber.d("MY_TAGGGGG", "Completeddddd");
+                        view.hideLoadingIndicator();
                     }
                 });
     }

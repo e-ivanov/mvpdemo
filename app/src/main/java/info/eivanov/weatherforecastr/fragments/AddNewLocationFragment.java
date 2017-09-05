@@ -25,7 +25,7 @@ import info.eivanov.weatherforecastr.model.City;
 import info.eivanov.weatherforecastr.view.AddNewLocationContract;
 import info.eivanov.weatherforecastr.view.AutoCompleteAdaper;
 
-public class AddNewLocationFragment extends Fragment implements AddNewLocationContract.View, TextWatcher{
+public class AddNewLocationFragment extends BaseFragment implements AddNewLocationContract.View, TextWatcher{
 
     public static final String TAG = "add_new_location_fragment";
     @Inject
@@ -122,6 +122,12 @@ public class AddNewLocationFragment extends Fragment implements AddNewLocationCo
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+        presenter.unsubscribe();
+    }
+
+    @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable("currentSelection", presenter.getCurrentSelection());
@@ -154,5 +160,15 @@ public class AddNewLocationFragment extends Fragment implements AddNewLocationCo
     @Override
     public void showErrorDialog(String errorMsg) {
         new DialogFragment().show(getActivity().getFragmentManager(), "My Dialog");
+    }
+
+    @Override
+    public void showLoadingIndicator() {
+        super.showLoadingIndicator();
+    }
+
+    @Override
+    public void hideLoadingIndicator() {
+        super.hideLoadingIndicator();
     }
 }

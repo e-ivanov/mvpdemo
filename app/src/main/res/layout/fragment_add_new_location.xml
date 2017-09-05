@@ -2,8 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="info.eivanov.weatherforecastr.fragments.AddNewLocationFragment"
-    android:background="@color/backgroud">
+    tools:context="info.eivanov.weatherforecastr.fragments.AddNewLocationFragment">
 
     <AutoCompleteTextView
         android:id="@+id/searchCityTxt"
