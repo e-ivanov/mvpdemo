@@ -7,15 +7,15 @@
     <AutoCompleteTextView
         android:id="@+id/searchCityTxt"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="35dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <ProgressBar
         android:id="@+id/progresBar"
+        android:layout_below="@id/searchCityTxt"
         android:layout_width="72dp"
         android:layout_height="72dp"
-        android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-
         android:indeterminate="true"/>
     <TextView
         android:id="@+id/cityAndCountryName"
@@ -33,12 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_btn"
         android:text="@string/save"/>
-    <Button
-        android:id="@+id/btnCancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/btnSaveNewLocation"
-        android:text="@string/cancel" />
+
 
     <Button
         android:id="@+id/btnClearCurrentSelection"
@@ -48,5 +43,12 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/margin_btn"
         android:text="@string/clear"/>
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@id/btnClearCurrentSelection"
+        android:text="@string/cancel" />
 
 </RelativeLayout>

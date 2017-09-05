@@ -74,7 +74,7 @@ public class AddNewLocationFragment extends BaseFragment implements AddNewLocati
         autoComplete = (AutoCompleteTextView)root.findViewById(R.id.searchCityTxt);
         autoComplete.setAdapter(autoCompleteAdapter);
         autoComplete.addTextChangedListener(this);
-        autoComplete.setThreshold(2);
+        autoComplete.setThreshold(3);
         autoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -139,13 +139,13 @@ public class AddNewLocationFragment extends BaseFragment implements AddNewLocati
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        if(s.length() < 2)return;
-        presenter.onTextChanged(s);
+
     }
 
     @Override
     public void afterTextChanged(Editable s) {
-
+        if(s.length() < autoComplete.getThreshold())return;
+        presenter.onTextChanged(s);
     }
 
     public void setCityDetails(City city){
@@ -159,6 +159,11 @@ public class AddNewLocationFragment extends BaseFragment implements AddNewLocati
     @Override
     public AutoCompleteAdaper getAutoCompleteAdaper() {
         return autoCompleteAdapter;
+    }
+
+    @Override
+    public AutoCompleteTextView getAutocompleteView() {
+        return autoComplete;
     }
 
     @Override

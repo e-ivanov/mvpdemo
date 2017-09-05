@@ -1,5 +1,7 @@
 package info.eivanov.weatherforecastr.view;
 
+import android.widget.AutoCompleteTextView;
+
 import info.eivanov.weatherforecastr.model.City;
 
 /**
@@ -12,6 +14,7 @@ public class AddNewLocationContract {
         public void setCityDetails(City city);
         public void clearCityDetails();
         public AutoCompleteAdaper getAutoCompleteAdaper();
+        public AutoCompleteTextView getAutocompleteView();
         public void showErrorDialog(String errorMsg);
         public void toggleAutocompleteInput(boolean enabled);
     }
