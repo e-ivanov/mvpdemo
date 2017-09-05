@@ -13,6 +13,7 @@ public class AddNewLocationContract {
         public void clearCityDetails();
         public AutoCompleteAdaper getAutoCompleteAdaper();
         public void showErrorDialog(String errorMsg);
+        public void toggleAutocompleteInput(boolean enabled);
     }
 
     public interface Presenter{

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +38,7 @@ public class AddNewLocationFragment extends BaseFragment implements AddNewLocati
     private Button saveLocationBtn;
     private Button cleanLocationBtn;
     private Button btnCancel;
+    private ProgressBar progressBar;
 
 
     public AddNewLocationFragment() {
@@ -67,6 +69,8 @@ public class AddNewLocationFragment extends BaseFragment implements AddNewLocati
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_add_new_location, container, false);
         cityDetails = (TextView)root.findViewById(R.id.cityAndCountryName);
+        progressBar = (ProgressBar)root.findViewById(R.id.progresBar);
+        progressBar.setVisibility(View.INVISIBLE);
         autoComplete = (AutoCompleteTextView)root.findViewById(R.id.searchCityTxt);
         autoComplete.setAdapter(autoCompleteAdapter);
         autoComplete.addTextChangedListener(this);
@@ -163,12 +167,17 @@ public class AddNewLocationFragment extends BaseFragment implements AddNewLocati
     }
 
     @Override
+    public void toggleAutocompleteInput(boolean enabled) {
+        autoComplete.setEnabled(enabled);
+    }
+
+    @Override
     public void showLoadingIndicator() {
-        super.showLoadingIndicator();
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoadingIndicator() {
-        super.hideLoadingIndicator();
+        progressBar.setVisibility(View.INVISIBLE);
     }
 }

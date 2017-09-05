@@ -81,7 +81,6 @@ public class AddNewLocationPresenter extends BasePresenter implements AddNewLoca
 
     @Override
     public void onTextChanged(CharSequence s) {
-        view.showLoadingIndicator();
         getWeatherInfoRepo.searchLocations(String.valueOf(s))
                 .debounce(750, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
@@ -89,6 +88,8 @@ public class AddNewLocationPresenter extends BasePresenter implements AddNewLoca
                 .subscribe(new Observer<City>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
+                        view.showLoadingIndicator();
+                        view.toggleAutocompleteInput(false);
                         disposable.add(d);
                     }
 
@@ -104,13 +105,14 @@ public class AddNewLocationPresenter extends BasePresenter implements AddNewLoca
                     @Override
                     public void onError(@NonNull Throwable e) {
                         Timber.e("MY_TAGGGGG", e.getMessage());
-                        view.showErrorDialog("My Dialog");
+                        view.toggleAutocompleteInput(true);
                         view.hideLoadingIndicator();
                     }
 
                     @Override
                     public void onComplete() {
                         Timber.d("MY_TAGGGGG", "Completeddddd");
+                        view.toggleAutocompleteInput(true);
                         view.hideLoadingIndicator();
                     }
                 });
