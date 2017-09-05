@@ -20,4 +20,5 @@
     <string name="clear">Clear</string>
     <string name="cancel">Cancel</string>
     <string name="add_new_location">Add new location</string>
+    <string name="enter_your_location">Enter your location:</string>
 </resources>

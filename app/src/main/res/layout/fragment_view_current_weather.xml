@@ -17,6 +17,7 @@
         android:id="@+id/currentWeatherIc"
         android:layout_width="match_parent"
         android:gravity="center"
+        android:textSize="200sp"
         android:layout_height="wrap_content"
         android:layout_below="@id/currentLocation"
         />

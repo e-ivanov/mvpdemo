@@ -4,18 +4,30 @@
     android:layout_height="match_parent"
     tools:context="info.eivanov.weatherforecastr.fragments.AddNewLocationFragment">
 
+    <TextView
+        android:id="@+id/locationLabelTxt"
+        android:layout_alignParentTop="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top_location_label"
+        android:layout_marginLeft="@dimen/autocomplete_margin_side"
+        android:text="@string/enter_your_location"/>
+
     <AutoCompleteTextView
         android:id="@+id/searchCityTxt"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="35dp"
+        android:layout_below="@id/locationLabelTxt"
+        android:layout_marginTop="@dimen/autocomplete_top_margin"
+        android:layout_marginLeft="@dimen/autocomplete_margin_side"
+        android:layout_marginRight="@dimen/autocomplete_margin_side"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <ProgressBar
         android:id="@+id/progresBar"
         android:layout_below="@id/searchCityTxt"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:layout_centerVertical="true"
+        android:layout_width="@dimen/progress_bar_side"
+        android:layout_height="@dimen/progress_bar_side"
+        android:layout_marginTop="@dimen/margin_top_progress_bar"
+        android:layout_centerHorizontal="true"
         android:indeterminate="true"/>
     <TextView
         android:id="@+id/cityAndCountryName"

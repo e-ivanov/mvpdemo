@@ -3,4 +3,9 @@
     <dimen name="text_margin">16dp</dimen>
     <dimen name="current_city_title">36sp</dimen>
     <dimen name="margin_btn">35dp</dimen>
+    <dimen name="margin_top_progress_bar">45px</dimen>
+    <dimen name="progress_bar_side">72dp</dimen>
+    <dimen name="autocomplete_top_margin">35dp</dimen>
+    <dimen name="autocomplete_margin_side">40dp</dimen>
+    <dimen name="margin_top_location_label">30dp</dimen>
 </resources>

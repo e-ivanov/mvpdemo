@@ -1,12 +1,15 @@
 package info.eivanov.weatherforecastr.fragments;
 
 import android.app.Fragment;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import java.util.Date;
 
 import javax.inject.Inject;
 
@@ -67,6 +70,7 @@ public class ViewCurrentWeatherFragment extends BaseFragment implements ShowCurr
         currentConditionsDesc = (TextView)root.findViewById(R.id.currentConditionsDesc);
         currentLocation = (TextView)root.findViewById(R.id.currentLocation);
         currentTemperature = (TextView)root.findViewById(R.id.currentTemperature);
+        currentWeatherIc.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "fonts/weather.ttf"));
         return root;
     }
 
@@ -94,7 +98,8 @@ public class ViewCurrentWeatherFragment extends BaseFragment implements ShowCurr
         Weather weather = response.getWeather().get(0);
         currentConditionsDesc.setText(weather.getMain()+", "+weather.getDescription());
         currentTemperature.setText(String.valueOf(response.getMain().getTemp()));
-        currentWeatherIc.setText(weather.getIcon());
+        currentWeatherIc.setText(getWeatherIcon(weather.getId().intValue(), response.getSys().getSunrise() * 1000,
+                response.getSys().getSunset() * 1000));
 
     }
 
@@ -112,5 +117,34 @@ public class ViewCurrentWeatherFragment extends BaseFragment implements ShowCurr
     public void onStop() {
         super.onStop();
         presenter.unsubscribe();
+    }
+
+    public String getWeatherIcon(int code, long sunrise, long sunset){
+        int id = code / 100;
+        String icon = "";
+        if(code == 800){
+            long currentTime = new Date().getTime();
+            if(currentTime>=sunrise && currentTime<sunset) {
+                icon = getActivity().getString(R.string.weather_sunny);
+            } else {
+                icon = getActivity().getString(R.string.weather_clear_night);
+            }
+        } else {
+            switch(id) {
+                case 2 : icon = getActivity().getString(R.string.weather_thunder);
+                    break;
+                case 3 : icon = getActivity().getString(R.string.weather_drizzle);
+                    break;
+                case 7 : icon = getActivity().getString(R.string.weather_foggy);
+                    break;
+                case 8 : icon = getActivity().getString(R.string.weather_cloudy);
+                    break;
+                case 6 : icon = getActivity().getString(R.string.weather_snowy);
+                    break;
+                case 5 : icon = getActivity().getString(R.string.weather_rainy);
+                    break;
+            }
+        }
+        return icon;
     }
 }
