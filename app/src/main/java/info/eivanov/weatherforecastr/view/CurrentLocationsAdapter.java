@@ -75,7 +75,7 @@ public class CurrentLocationsAdapter extends RecyclerView.Adapter<CurrentLocatio
             StringBuilder builder = new StringBuilder();
             builder.append(city.getName());
             builder.append(", ");
-            builder.append(city.getCountry());
+            builder.append(city.getSys().getCountry());
             cityAndCountryName.setText(builder.toString());
         }
     }

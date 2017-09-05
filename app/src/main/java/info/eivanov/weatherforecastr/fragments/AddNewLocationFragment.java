@@ -149,7 +149,7 @@ public class AddNewLocationFragment extends BaseFragment implements AddNewLocati
     }
 
     public void setCityDetails(City city){
-        cityDetails.setText(city.getName() +", "+city.getCountry());
+        cityDetails.setText(city.getName() +", "+city.getSys().getCountry());
     }
 
     public void clearCityDetails(){

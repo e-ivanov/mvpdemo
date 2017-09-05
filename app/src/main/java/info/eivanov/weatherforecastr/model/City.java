@@ -21,6 +21,9 @@ public class City implements Parcelable
     @SerializedName("coord")
     @Expose
     private Coord coord;
+    @SerializedName("sys")
+    @Expose
+    private Sys sys;
 
     private boolean isDefault = false;
     public final static Creator<City> CREATOR = new Creator<City>() {
@@ -35,6 +38,7 @@ public class City implements Parcelable
             instance.name = ((String) in.readValue((String.class.getClassLoader())));
             instance.country = ((String) in.readValue((String.class.getClassLoader())));
             instance.coord = ((Coord) in.readValue((Coord.class.getClassLoader())));
+            instance.sys = ((Sys) in.readValue((Sys.class.getClassLoader())));
             return instance;
         }
 
@@ -74,6 +78,7 @@ public class City implements Parcelable
         dest.writeValue(name);
         dest.writeValue(country);
         dest.writeValue(coord);
+        dest.writeValue(sys);
     }
 
     public int describeContents() {
@@ -91,6 +96,14 @@ public class City implements Parcelable
 
     @Override
     public String toString() {
-        return getName() + ", "+getCountry();
+        return getName() + ", "+getSys().getCountry();
+    }
+
+    public Sys getSys() {
+        return sys;
+    }
+
+    public void setSys(Sys sys) {
+        this.sys = sys;
     }
 }

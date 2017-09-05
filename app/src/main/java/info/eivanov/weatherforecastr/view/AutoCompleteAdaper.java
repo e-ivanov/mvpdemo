@@ -44,7 +44,7 @@ public class AutoCompleteAdaper extends ArrayAdapter<City>{
 
         @Override
         public CharSequence convertResultToString(Object resultValue) {
-            return ((City)resultValue).getName()+", "+((City)resultValue).getCountry();
+            return ((City)resultValue).getName()+", "+((City)resultValue).getSys().getCountry();
         }
 
         @Override

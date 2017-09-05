@@ -52,7 +52,7 @@ public class MainActivity extends Activity implements Navigator{
 
     @Override
     public void showCurrentWeatherScreen(long cityId) {
-        showScreen(ViewCurrentWeatherFragment.newInstance(cityId), ViewCurrentWeatherFragment.TAG, false);
+        showScreen(ViewCurrentWeatherFragment.newInstance(cityId), ViewCurrentWeatherFragment.TAG, true);
     }
 
     @Override
@@ -62,6 +62,6 @@ public class MainActivity extends Activity implements Navigator{
 
     @Override
     public void showAddNewLocationScreen() {
-        showScreen(AddNewLocationFragment.newInstance(), AddNewLocationFragment.TAG, false);
+        showScreen(AddNewLocationFragment.newInstance(), AddNewLocationFragment.TAG, true);
     }
 }
