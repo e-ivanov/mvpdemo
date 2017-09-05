@@ -13,7 +13,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import javax.inject.Inject;
 
@@ -79,7 +78,6 @@ public class AddNewLocationFragment extends BaseFragment implements AddNewLocati
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 City city = autoCompleteAdapter.getCurrentItems().get(position);
-                Toast.makeText(getActivity(), autoCompleteAdapter.getCurrentItems().get(position).toString(), Toast.LENGTH_LONG).show();
                 autoComplete.setText("");
                 setCityDetails(city);
                 presenter.setCurrentSelection(city);

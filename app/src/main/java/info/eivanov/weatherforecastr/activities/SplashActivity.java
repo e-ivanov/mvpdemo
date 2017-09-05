@@ -1,10 +1,8 @@
 package info.eivanov.weatherforecastr.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
 import javax.inject.Inject;
 
@@ -22,7 +20,6 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         WeatherForecastrApp.getApp(this).getApplicationComponent().inject(this);
-        Toast.makeText(this, currentLocationsRepo.toString(), Toast.LENGTH_LONG).show();
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
         finish();

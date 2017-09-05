@@ -2,13 +2,14 @@ package info.eivanov.weatherforecastr.activities;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import javax.inject.Inject;
 
+import info.eivanov.weatherforecastr.BuildConfig;
 import info.eivanov.weatherforecastr.R;
 import info.eivanov.weatherforecastr.WeatherForecastrApp;
 import info.eivanov.weatherforecastr.fragments.AddNewLocationFragment;
@@ -28,6 +29,9 @@ public class MainActivity extends Activity implements Navigator{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if(BuildConfig.DEBUG){
+            FragmentManager.enableDebugLogging(true);
+        }
         WeatherForecastrApp.getApp(this).getApplicationComponent().inject(this);
         fragmentContainer = (FrameLayout)findViewById(R.id.fragmentContainer);
         if(getFragmentManager().findFragmentById(R.id.fragmentContainer) == null){
@@ -38,7 +42,6 @@ public class MainActivity extends Activity implements Navigator{
             }
         }
         WeatherForecastrApp.getApp(this).getApplicationComponent().inject(this);
-        Toast.makeText(this, currentLocationsRepo.toString(), Toast.LENGTH_LONG).show();
     }
 
     public void showScreen(Fragment view, String tag, boolean addToHistory) {
