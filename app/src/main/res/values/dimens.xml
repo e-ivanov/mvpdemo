@@ -8,4 +8,5 @@
     <dimen name="autocomplete_top_margin">35dp</dimen>
     <dimen name="autocomplete_margin_side">40dp</dimen>
     <dimen name="margin_top_location_label">30dp</dimen>
+    <dimen name="weather_icon_size">140sp</dimen>
 </resources>
