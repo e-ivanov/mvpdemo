@@ -153,6 +153,7 @@ public class AddNewLocationFragment extends BaseFragment implements AddNewLocati
     }
 
     public void clearCityDetails(){
+        autoComplete.setText("");
         cityDetails.setText("");
     }
 

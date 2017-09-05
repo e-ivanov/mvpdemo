@@ -57,9 +57,9 @@ public class CurrentLocationsAdapter extends RecyclerView.Adapter<CurrentLocatio
             delBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    presenter.deleteCityById(cities.get(position).getId());
-                    cities.remove(position);
-                    notifyItemRemoved(position);
+                    presenter.deleteCityById(cities.get(getAdapterPosition()).getId());
+                    cities.remove(getAdapterPosition());
+                    notifyItemRemoved(getAdapterPosition());
                 }
             });
             itemView.setOnClickListener(new View.OnClickListener() {

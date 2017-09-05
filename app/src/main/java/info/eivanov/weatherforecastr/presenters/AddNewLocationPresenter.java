@@ -89,7 +89,7 @@ public class AddNewLocationPresenter extends BasePresenter implements AddNewLoca
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
                         view.showLoadingIndicator();
-                        view.toggleAutocompleteInput(false);
+//                        view.toggleAutocompleteInput(false);
                         disposable.add(d);
                     }
 
