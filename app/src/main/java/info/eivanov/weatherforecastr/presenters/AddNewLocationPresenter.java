@@ -88,7 +88,7 @@ public class AddNewLocationPresenter extends BasePresenter implements AddNewLoca
                 .subscribe(new Observer<City>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
-                        view.showLoadingIndicator();
+//                        view.showLoadingIndicator();
 //                        view.toggleAutocompleteInput(false);
                         disposable.add(d);
                     }
