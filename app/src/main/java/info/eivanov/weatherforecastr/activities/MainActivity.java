@@ -41,7 +41,6 @@ public class MainActivity extends Activity implements Navigator{
                 showScreen(AddNewLocationFragment.newInstance(), AddNewLocationFragment.TAG, false);
             }
         }
-        WeatherForecastrApp.getApp(this).getApplicationComponent().inject(this);
     }
 
     public void showScreen(Fragment view, String tag, boolean addToHistory) {
