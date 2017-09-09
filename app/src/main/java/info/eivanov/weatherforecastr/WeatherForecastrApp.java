@@ -37,10 +37,22 @@ public class WeatherForecastrApp extends Application{
         }
 //        Fabric.with(this, new Crashlytics());
         applicationComponent = DaggerApplicationComponent.builder()
-                .applicationModule(new ApplicationModule(this))
-                .networkModule(new NetworkModule("http://api.openweathermap.org/data/2.5/"))
-                .repositoryModule(new RepositoryModule())
+                .applicationModule(getApplicationModule())
+                .networkModule(getNetworkModule())
+                .repositoryModule(getRepositoryModule())
                 .build();
+    }
+
+    public ApplicationModule getApplicationModule(){
+        return new ApplicationModule(this);
+    }
+
+    public NetworkModule getNetworkModule(){
+        return new NetworkModule("http://api.openweathermap.org/data/2.5/");
+    }
+
+    public RepositoryModule getRepositoryModule(){
+        return new RepositoryModule();
     }
 
     public ApplicationComponent getApplicationComponent(){
