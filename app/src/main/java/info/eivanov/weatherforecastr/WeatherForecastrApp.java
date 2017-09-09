@@ -1,15 +1,18 @@
 package info.eivanov.weatherforecastr;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 
 import com.facebook.stetho.Stetho;
 
+import info.eivanov.weatherforecastr.activities.Navigator;
 import info.eivanov.weatherforecastr.di.components.ApplicationComponent;
 import info.eivanov.weatherforecastr.di.components.DaggerApplicationComponent;
 import info.eivanov.weatherforecastr.di.components.PresenterComponent;
 import info.eivanov.weatherforecastr.di.modules.ApplicationModule;
 import info.eivanov.weatherforecastr.di.modules.NetworkModule;
+import info.eivanov.weatherforecastr.di.modules.PresenterModule;
 import info.eivanov.weatherforecastr.di.modules.RepositoryModule;
 import info.eivanov.weatherforecastr.timber.ReleaseTree;
 import timber.log.Timber;
@@ -57,6 +60,10 @@ public class WeatherForecastrApp extends Application{
 
     public ApplicationComponent getApplicationComponent(){
         return applicationComponent;
+    }
+
+    public PresenterModule producePresenterModule(Navigator navigator){
+        return new PresenterModule(navigator);
     }
 
 }

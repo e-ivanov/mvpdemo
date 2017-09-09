@@ -54,9 +54,10 @@ public class AddNewLocationFragment extends BaseFragment implements AddNewLocati
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        WeatherForecastrApp app = WeatherForecastrApp.getApp(getActivity());
         DaggerPresenterComponent.builder()
-                .applicationComponent(WeatherForecastrApp.getApp(getActivity()).getApplicationComponent())
-                .presenterModule(new PresenterModule((Navigator)getActivity()))
+                .applicationComponent(app.getApplicationComponent())
+                .presenterModule(app.producePresenterModule((Navigator)getActivity()))
                 .build().inject(this);
         autoCompleteAdapter = new AutoCompleteAdaper(getActivity(),
                 android.R.layout.simple_dropdown_item_1line);
