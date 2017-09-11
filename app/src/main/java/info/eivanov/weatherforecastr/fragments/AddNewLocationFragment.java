@@ -1,8 +1,8 @@
 package info.eivanov.weatherforecastr.fragments;
 
 import android.app.DialogFragment;
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.annotation.VisibleForTesting;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -13,14 +13,13 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import javax.inject.Inject;
 
 import info.eivanov.weatherforecastr.R;
 import info.eivanov.weatherforecastr.WeatherForecastrApp;
 import info.eivanov.weatherforecastr.activities.Navigator;
-import info.eivanov.weatherforecastr.di.components.DaggerPresenterComponent;
-import info.eivanov.weatherforecastr.di.modules.PresenterModule;
 import info.eivanov.weatherforecastr.model.City;
 import info.eivanov.weatherforecastr.view.AddNewLocationContract;
 import info.eivanov.weatherforecastr.view.AutoCompleteAdaper;
@@ -44,6 +43,11 @@ public class AddNewLocationFragment extends BaseFragment implements AddNewLocati
         // Required empty public constructor
     }
 
+    @VisibleForTesting
+    public AddNewLocationContract.Presenter getPresenter() {
+        return presenter;
+    }
+
     public static AddNewLocationFragment newInstance() {
         AddNewLocationFragment fragment = new AddNewLocationFragment();
         Bundle args = new Bundle();
@@ -55,10 +59,7 @@ public class AddNewLocationFragment extends BaseFragment implements AddNewLocati
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         WeatherForecastrApp app = WeatherForecastrApp.getApp(getActivity());
-        DaggerPresenterComponent.builder()
-                .applicationComponent(app.getApplicationComponent())
-                .presenterModule(app.producePresenterModule((Navigator)getActivity()))
-                .build().inject(this);
+        app.getPresenterComponent((Navigator)getActivity()).inject(this);
         autoCompleteAdapter = new AutoCompleteAdaper(getActivity(),
                 android.R.layout.simple_dropdown_item_1line);
         presenter.setView(this);
@@ -92,6 +93,7 @@ public class AddNewLocationFragment extends BaseFragment implements AddNewLocati
         saveLocationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 presenter.saveLocation();
                 getActivity().getFragmentManager().popBackStack();
             }

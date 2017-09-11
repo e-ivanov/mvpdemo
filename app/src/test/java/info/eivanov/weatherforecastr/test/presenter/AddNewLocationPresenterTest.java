@@ -89,6 +89,12 @@ public class AddNewLocationPresenterTest {
     }
 
     @Test
+    public void testCurrentSelectionIsPreservedOnRotation(){
+        City city = CityFactory.createTestDummy();
+        presenter.setCurrentSelection(city);
+    }
+
+    @Test
     public void setCurrentSelection() throws Exception {
         City city = CityFactory.createTestDummy();
         presenter.setCurrentSelection(city);

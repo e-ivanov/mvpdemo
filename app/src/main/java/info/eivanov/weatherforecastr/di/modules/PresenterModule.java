@@ -29,7 +29,7 @@ public class PresenterModule {
 
     @FragmentScope
     @Provides
-    AddNewLocationContract.Presenter providesAddNewLocationPresenter(CurrentLocationsRepo
+    protected AddNewLocationContract.Presenter providesAddNewLocationPresenter(CurrentLocationsRepo
                                                                              currentLocationsRepo,
                                                                      GetWeatherInfoRepo weatherInfoRepo){
         return new AddNewLocationPresenter(currentLocationsRepo, weatherInfoRepo, navigator);
@@ -37,13 +37,13 @@ public class PresenterModule {
 
     @FragmentScope
     @Provides
-    LocationsListContract.Presenter providesLocationsListPresenter(CurrentLocationsRepo currentLocationsRepo){
+    protected LocationsListContract.Presenter providesLocationsListPresenter(CurrentLocationsRepo currentLocationsRepo){
         return new LocationListPresenter(currentLocationsRepo, navigator);
     }
 
     @FragmentScope
     @Provides
-    ShowCurrentWeatherContract.Presenter providesShowCurrentWeatherPresenter(GetWeatherInfoRepo weatherInfoRepo){
+    protected ShowCurrentWeatherContract.Presenter providesShowCurrentWeatherPresenter(GetWeatherInfoRepo weatherInfoRepo){
         return new ShowCurrentWeatherPresenter(weatherInfoRepo, navigator);
     }
 }

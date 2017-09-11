@@ -1,4 +1,4 @@
-package info.eivanov.weatherforecastr.di.modules;
+package info.eivanov.weatherforecastr;
 
 import android.app.Application;
 import android.content.Context;
@@ -12,36 +12,34 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
- * Created by killer on 8/30/17.
+ * Created by killer on 9/9/17.
  */
 
 @Module
-public class ApplicationModule {
-
+public class ApplicationMockModule {
     private final Application mApplication;
 
-    public ApplicationModule(Application mApplication) {
+    public ApplicationMockModule(Application mApplication) {
         this.mApplication = mApplication;
     }
 
     @Provides
     @Singleton
-    protected Application providesApplication(){
+    Application providesApplication(){
         return mApplication;
     }
 
     @Provides
     @Singleton
     @Named("defaultPrefs")
-    protected SharedPreferences providesSharedPreferences(Application application){
+    SharedPreferences providesSharedPreferences(Application application){
         return PreferenceManager.getDefaultSharedPreferences(application);
     }
 
     @Provides
     @Singleton
     @Named("dataPrefs")
-    protected SharedPreferences provideDataPreferences(Application application){
+    SharedPreferences provideDataPreferences(Application application){
         return application.getSharedPreferences("data", Context.MODE_PRIVATE);
     }
-
 }

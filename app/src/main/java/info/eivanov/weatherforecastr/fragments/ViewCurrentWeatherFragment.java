@@ -1,6 +1,5 @@
 package info.eivanov.weatherforecastr.fragments;
 
-import android.app.Fragment;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,8 +15,6 @@ import javax.inject.Inject;
 import info.eivanov.weatherforecastr.R;
 import info.eivanov.weatherforecastr.WeatherForecastrApp;
 import info.eivanov.weatherforecastr.activities.Navigator;
-import info.eivanov.weatherforecastr.di.components.DaggerPresenterComponent;
-import info.eivanov.weatherforecastr.di.modules.PresenterModule;
 import info.eivanov.weatherforecastr.model.Weather;
 import info.eivanov.weatherforecastr.model.WeatherForecastResponse;
 import info.eivanov.weatherforecastr.view.ShowCurrentWeatherContract;
@@ -53,10 +50,7 @@ public class ViewCurrentWeatherFragment extends BaseFragment implements ShowCurr
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         WeatherForecastrApp app = WeatherForecastrApp.getApp(getActivity());
-        DaggerPresenterComponent.builder()
-                .applicationComponent(app.getApplicationComponent())
-                .presenterModule(app.producePresenterModule((Navigator)getActivity()))
-                .build().inject(this);
+        app.getPresenterComponent((Navigator)getActivity()).inject(this);
         presenter.setView(this);
         if (getArguments() != null) {
             cityId = getArguments().getLong("city_id", -1);

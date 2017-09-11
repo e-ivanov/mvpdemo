@@ -9,6 +9,7 @@ import com.facebook.stetho.Stetho;
 import info.eivanov.weatherforecastr.activities.Navigator;
 import info.eivanov.weatherforecastr.di.components.ApplicationComponent;
 import info.eivanov.weatherforecastr.di.components.DaggerApplicationComponent;
+import info.eivanov.weatherforecastr.di.components.DaggerPresenterComponent;
 import info.eivanov.weatherforecastr.di.components.PresenterComponent;
 import info.eivanov.weatherforecastr.di.modules.ApplicationModule;
 import info.eivanov.weatherforecastr.di.modules.NetworkModule;
@@ -39,31 +40,30 @@ public class WeatherForecastrApp extends Application{
             Timber.plant(new ReleaseTree());
         }
 //        Fabric.with(this, new Crashlytics());
-        applicationComponent = DaggerApplicationComponent.builder()
-                .applicationModule(getApplicationModule())
-                .networkModule(getNetworkModule())
-                .repositoryModule(getRepositoryModule())
+        applicationComponent = buildAppComponent();
+    }
+
+    protected ApplicationComponent buildAppComponent(){
+        return DaggerApplicationComponent.builder()
+                .applicationModule(new ApplicationModule(this))
+                .networkModule(new NetworkModule("http://api.openweathermap.org/data/2.5/"))
+                .repositoryModule(new RepositoryModule())
                 .build();
-    }
-
-    public ApplicationModule getApplicationModule(){
-        return new ApplicationModule(this);
-    }
-
-    public NetworkModule getNetworkModule(){
-        return new NetworkModule("http://api.openweathermap.org/data/2.5/");
-    }
-
-    public RepositoryModule getRepositoryModule(){
-        return new RepositoryModule();
     }
 
     public ApplicationComponent getApplicationComponent(){
         return applicationComponent;
     }
 
-    public PresenterModule producePresenterModule(Navigator navigator){
-        return new PresenterModule(navigator);
+    protected DaggerPresenterComponent.Builder buildPresenterComponent(){
+        return DaggerPresenterComponent.builder();
+    }
+
+    public PresenterComponent getPresenterComponent(Navigator navigator){
+        return DaggerPresenterComponent.builder()
+                .applicationComponent(getApplicationComponent())
+                .presenterModule(new PresenterModule(navigator))
+                .build();
     }
 
 }

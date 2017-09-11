@@ -39,14 +39,14 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    Gson provideGson(){
+    protected Gson provideGson(){
         GsonBuilder builder = new GsonBuilder();
         return builder.create();
     }
 
     @Provides
     @Singleton
-    Cache provideOkHttpCache(Application application){
+    protected Cache provideOkHttpCache(Application application){
         int cacheSize = 10 * 1024 * 1024;//Total of 10 MB
         Cache cache = new Cache(application.getCacheDir(), cacheSize);
         return cache;
@@ -54,7 +54,7 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    OkHttpClient provideOkHttpClient(Cache cache){
+    protected OkHttpClient provideOkHttpClient(Cache cache){
 
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -86,7 +86,7 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    Retrofit providesRetrofit(Gson gson, OkHttpClient okHttpClient){
+    protected Retrofit providesRetrofit(Gson gson, OkHttpClient okHttpClient){
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .baseUrl(baseUrl)
@@ -99,7 +99,7 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    MapAPIService providesMapAPIService(Retrofit retrofit){
+    protected MapAPIService providesMapAPIService(Retrofit retrofit){
         return retrofit.create(MapAPIService.class);
     }
 
