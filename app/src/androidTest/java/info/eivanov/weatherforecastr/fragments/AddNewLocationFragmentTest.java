@@ -52,6 +52,7 @@ public class AddNewLocationFragmentTest {
     private final Instrumentation inst = InstrumentationRegistry.getInstrumentation();
 
 
+
     @Before
     public void init(){
         fragment = new AddNewLocationFragment();
@@ -59,6 +60,8 @@ public class AddNewLocationFragmentTest {
         testRule.getActivity().getFragmentManager().beginTransaction()
                 .replace(R.id.fragmentContainer, fragment).commit();
 
+//        MockitoAnnotations.initMocks(fragment);
+        //@InjectMocks
         inst.waitForIdleSync();
 
     }

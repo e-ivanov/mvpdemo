@@ -9,6 +9,9 @@ import info.eivanov.weatherforecastr.model.City;
 import info.eivanov.weatherforecastr.model.WeatherForecastResponse;
 import info.eivanov.weatherforecastr.retrofit.MapAPIService;
 import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subjects.ReplaySubject;
 import timber.log.Timber;
 
 /**
@@ -29,13 +32,13 @@ public class GetWeatherInfoRepoImpl implements GetWeatherInfoRepo {
 
     @Override
     public Observable<WeatherForecastResponse> getWeatherForecastForCity(long id) {
-        return cacheObservable(mapAPIService.getCurrentWeatherForCity(id).cache(),
+        return cacheObservable(mapAPIService.getCurrentWeatherForCity(id),
                                WEATHER_CACHE_TAG+id);
     }
 
     @Override
     public Observable<City> searchLocations(String searchQuery) {
-        return cacheObservable(mapAPIService.getCitiesByName(searchQuery).cache(),
+        return cacheObservable(mapAPIService.getCitiesByName(searchQuery),
                                SEARCH_CITY_CACHE_TAG+searchQuery);
     }
 
@@ -46,7 +49,9 @@ public class GetWeatherInfoRepoImpl implements GetWeatherInfoRepo {
             return fromCache;
         }
 
-        fromCache = observable;
+        ReplaySubject<T> subject = ReplaySubject.create();
+        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(subject);
+        fromCache = subject;
         cache.put(tag, fromCache);
         Timber.d("WEATHER_REPO", "THIS IS A CACHE MISSSS!");
         return fromCache;

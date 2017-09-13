@@ -75,6 +75,7 @@ public class ShowCurrentWeatherPresenter extends BasePresenter implements ShowCu
 
     @Override
     public void unsubscribe() {
+        Timber.d("Unsubscribed!");
         disposable.clear();
     }
 
