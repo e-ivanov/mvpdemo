@@ -93,6 +93,11 @@ public class LocationsListFragment extends BaseFragment implements LocationsList
     }
 
     @Override
+    public void showErrorDialog(String error) {
+
+    }
+
+    @Override
     public void onStop() {
         super.onStop();
         presenter.unsubscribe();

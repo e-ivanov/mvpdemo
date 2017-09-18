@@ -55,6 +55,7 @@ public class ShowCurrentWeatherPresenter extends BasePresenter implements ShowCu
           public void onError(@NonNull Throwable e) {
               Timber.d( e);
               view.hideLoadingIndicator();
+              view.showErrorDialog("An error has occurred! Please, try again later!");
           }
 
           @Override
@@ -76,6 +77,7 @@ public class ShowCurrentWeatherPresenter extends BasePresenter implements ShowCu
     @Override
     public void unsubscribe() {
         Timber.d("Unsubscribed!");
+        view.hideLoadingIndicator();
         disposable.clear();
     }
 

@@ -6,10 +6,12 @@ import android.util.LruCache;
 import java.util.List;
 
 import info.eivanov.weatherforecastr.model.City;
+import info.eivanov.weatherforecastr.model.Sys;
 import info.eivanov.weatherforecastr.model.WeatherForecastResponse;
 import info.eivanov.weatherforecastr.retrofit.MapAPIService;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.ReplaySubject;
 import timber.log.Timber;
@@ -42,7 +44,7 @@ public class GetWeatherInfoRepoImpl implements GetWeatherInfoRepo {
                                SEARCH_CITY_CACHE_TAG+searchQuery);
     }
 
-    private <T>Observable<T> cacheObservable(Observable<T> observable, String tag){
+    private <T>Observable<T> cacheObservable(Observable<T> observable, final String tag){
         Observable<T> fromCache = (Observable<T>)cache.get(tag);
         if(fromCache != null){
             Timber.d( "THIS IS A CACHE HIT!");
@@ -50,7 +52,16 @@ public class GetWeatherInfoRepoImpl implements GetWeatherInfoRepo {
         }
 
         ReplaySubject<T> subject = ReplaySubject.create();
-        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(subject);
+        observable
+                .doOnError(new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        cache.remove(tag);
+                        Timber.d("Removed from cache tag: "+tag);
+                        Timber.d(Thread.currentThread().getName());
+                    }
+                })
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(subject);
         fromCache = subject;
         cache.put(tag, fromCache);
         Timber.d("WEATHER_REPO", "THIS IS A CACHE MISSSS!");

@@ -8,4 +8,5 @@ public interface BaseView {
 
     public void showLoadingIndicator();
     public void hideLoadingIndicator();
+    public void showErrorDialog(String error);
 }

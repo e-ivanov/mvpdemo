@@ -18,6 +18,7 @@ import info.eivanov.weatherforecastr.activities.Navigator;
 import info.eivanov.weatherforecastr.model.Weather;
 import info.eivanov.weatherforecastr.model.WeatherForecastResponse;
 import info.eivanov.weatherforecastr.view.ShowCurrentWeatherContract;
+import timber.log.Timber;
 
 
 public class ViewCurrentWeatherFragment extends BaseFragment implements ShowCurrentWeatherContract.View {
@@ -54,6 +55,7 @@ public class ViewCurrentWeatherFragment extends BaseFragment implements ShowCurr
         presenter.setView(this);
         if (getArguments() != null) {
             cityId = getArguments().getLong("city_id", -1);
+            Timber.d("Called with argument: "+cityId);
         }
         if(cityId != -1) {
             presenter.loadForecast(cityId);
@@ -109,6 +111,12 @@ public class ViewCurrentWeatherFragment extends BaseFragment implements ShowCurr
     public void hideLoadingIndicator() {
         super.hideLoadingIndicator();
     }
+
+    @Override
+    public void showErrorDialog(String error) {
+
+    }
+
     @Override
     public void onStop() {
         super.onStop();
